@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@chabb/keyboard": ["libs/keyboard/src/index.ts"],
       "@chabb/music": ["libs/music/src/index.ts"],
       "@chabb/sprite": ["libs/sprite/src/index.ts"]
     }
