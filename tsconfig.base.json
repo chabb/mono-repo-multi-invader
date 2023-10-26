@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@chabb/music": ["libs/music/src/index.ts"],
+      "@chabb/sprite": ["libs/sprite/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
