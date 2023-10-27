@@ -18,7 +18,8 @@
       "@chabb/keyboard": ["libs/keyboard/src/index.ts"],
       "@chabb/music": ["libs/music/src/index.ts"],
       "@chabb/renderer": ["libs/renderer/src/index.ts"],
-      "@chabb/sprite": ["libs/sprite/src/index.ts"]
+      "@chabb/sprite": ["libs/sprite/src/index.ts"],
+      "@chabb/utility": ["libs/utility/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
