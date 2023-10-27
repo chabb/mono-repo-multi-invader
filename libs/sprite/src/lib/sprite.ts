@@ -14,7 +14,7 @@ export class DisplayObject {
   vx = 0;
   vy = 0;
   children: DisplayObject[] = [];
-  parent?: DisplayObject
+  parent!: DisplayObject // ultimate parent is the scene
   shadow = false;
   shadowColor = 'rgba(100, 0100, 100, 0.5)';
   shadowOffsetX = 0.3;
@@ -312,3 +312,5 @@ export class Group extends DisplayObject {
     this.height = this._newHeight;
   }
 }
+
+export type Renderable = Line | Circle | Rectangle;
