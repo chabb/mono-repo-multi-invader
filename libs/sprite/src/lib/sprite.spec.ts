@@ -1,7 +1,7 @@
-import { sprite } from './sprite';
+import { DisplayObject } from './displayObject';
 
 describe('sprite', () => {
   it('should work', () => {
-    expect(sprite()).toEqual('sprite');
+    expect(new DisplayObject()).not.toBeNull();
   });
 });

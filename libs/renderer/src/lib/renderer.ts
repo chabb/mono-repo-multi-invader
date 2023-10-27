@@ -1,4 +1,5 @@
-import {Circle, DisplayObject, Group, Line, Renderable} from "@chabb/sprite";
+import {DisplayObject, Stage, Renderable} from "@chabb/sprite";
+
 
 interface CanvasWithContext extends HTMLCanvasElement {
   ctx: CanvasRenderingContext2D
@@ -21,13 +22,6 @@ export function makeCanvas(width = 256, heigth = 256, border = '1px dashed black
   }
 }
 
-class Stage extends  DisplayObject {
-  currentPosition!: {
-    x: number,
-    y: number
-    rotation: number
-  }
-}
 
 export function render(canvas: CanvasWithContext, stage: Stage) {
   const ctx = canvas.ctx;
@@ -91,16 +85,3 @@ export function render(canvas: CanvasWithContext, stage: Stage) {
 }
 
 
-//A higher level wrapper for the group sprite
-export function group(stage: Stage, ...spritesToGroup: DisplayObject[]) {
-
-  if (!stage) {
-    stage = (window as any).stage; // FIXME
-  }
-  //Create the sprite
-  const sprite = new Group(...spritesToGroup);
-  //Add the sprite to the stage
-  stage.addChild(sprite);
-  //Return the sprite to the main program
-  return sprite;
-}
