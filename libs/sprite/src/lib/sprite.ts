@@ -207,3 +207,61 @@ export class Circle extends DisplayObject {
     if (this.mask && this.mask === true) ctx.clip();
   }
 }
+
+export class Line extends DisplayObject {
+
+  lineJoin: CanvasLineJoin = 'round';
+  constructor(
+        public strokeStyle = 'none',
+        public lineWidth = 0,
+        public ax = 0,
+        public ay = 0,
+        public bx = 32,
+        public by = 32
+    ) {
+        super();
+    }
+
+    render(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = this.strokeStyle;
+        ctx.lineWidth = this.lineWidth;
+        ctx.lineJoin = this.lineJoin;
+        ctx.beginPath();
+        ctx.moveTo(this.ax, this.ay);
+        ctx.lineTo(this.bx, this.by);
+        if (this.strokeStyle !== 'none') ctx.stroke();
+        if (this.strokeStyle !== 'none') ctx.stroke();
+    }
+}
+
+export class Rectangle extends DisplayObject {
+
+  strokeStyle: string;
+  fillStyle: string;
+  lineWidth: number;
+  mask: boolean;
+  constructor(width = 32, height = 32, strokeStyle = 'none', fillStyle = 'gray', lineWidth = 0, x = 0, y = 0) {
+        super();
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;
+        this.strokeStyle = 'none';
+        this.fillStyle = 'gray';
+        this.lineWidth = 0;
+        Object.assign(this, {width, height, fillStyle, strokeStyle, lineWidth, x, y});
+        this.mask = false;
+    }
+    render(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = this.strokeStyle;
+        ctx.lineWidth = this.lineWidth;
+        ctx.fillStyle = this.fillStyle;
+        ctx.beginPath();
+        // notice how we render above the pivot point
+        ctx.rect(-this.width * this.pivotX, -this.height * this.pivotY, this.width, this.height);
+        if (this.strokeStyle !== 'none')  ctx.stroke();
+        if (this.fillStyle !== 'none') ctx.fill();
+        if (this.mask && this.mask === true) ctx.clip();
+    }
+
+}
