@@ -24,9 +24,9 @@ export class DisplayObject {
   playing = true;
 
   private _layer!: number; // FIXME, check if we can remove the !
-  private _draggable = undefined;
+  // private _draggable = false; FIXME MAKE SURE IT'S NOT USED ANYMORE
   private _currentFrame = 0;
-  private _interactive = false;
+  // private _interactive = false;
   private _circular = false;
 
   get circular() {
