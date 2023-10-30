@@ -1,3 +1,3 @@
-export function main(): string {
-  return 'main';
+export function main(): void {
+  console.log('--------------->>> APP STARTED');
 }
