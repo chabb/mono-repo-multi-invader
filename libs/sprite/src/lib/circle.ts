@@ -3,6 +3,8 @@ import { DisplayObject } from './displayObject';
 export class Circle extends DisplayObject {
 
     mask = false;
+    bounce?: {x: number, y: number};
+
     constructor(
         public diameter = 32,
         public fillStyle = 'gray',

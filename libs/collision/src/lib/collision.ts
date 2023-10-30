@@ -58,7 +58,7 @@ function hitTestPoint(point: Point, sprite: Renderable) {
 
   //Find out if the sprite is rectangular or circular depending
   //on whether it has a `radius` property
-  if (sprite.radius) {
+  if ((sprite as any).radius) {
     shape = "circle";
   } else {
     shape = "rectangle";
@@ -86,7 +86,7 @@ function hitTestPoint(point: Point, sprite: Renderable) {
 
     //The point is intersecting the circle if the magnitude
     //(distance) is less than the circle's radius
-    hit = magnitude < sprite.radius;
+    hit = magnitude < (sprite as any).radius;
   }
 
   //`hit` will be either `true` or `false`
@@ -111,8 +111,8 @@ function hitTestCircle(c1: Circle, c2: Circle, global = false) {
   //Calculate the vector between the circles’ center points
   if (global) {
     //Use global coordinates
-    vx = (c2.gx + c2.radius) - (c1.gx + c1.radius);
-    vy = (c2.gy + c2.radius) - (c1.gy + c1.radius);
+    vx = (c2.gx + (c2 as any).radius) - (c1.gx + (c1 as any).radius);
+    vy = (c2.gy + (c2 as any).radius) - (c1.gy + (c1 as any).radius);
   } else {
     //Use local coordinates
     vx = c2.centerX - c1.centerX;
@@ -124,7 +124,7 @@ function hitTestCircle(c1: Circle, c2: Circle, global = false) {
   const magnitude = Math.sqrt(vx * vx + vy * vy);
 
   //Add together the circles' total radii
-  const combinedRadii = c1.radius + c2.radius;
+  const combinedRadii = (c1 as any).radius + (c2 as any).radius;
 
   //Set `hit` to `true` if the distance between the circles is
   //less than their `combinedRadii`
@@ -154,15 +154,17 @@ export
 function circleCollision(c1: Circle, c2: Circle, bounce = false, global = false) {
 
   let overlap,
-      vx, vy, dx, dy, s = {},
+      vx, vy, dx, dy,
       hit = false;
+
+  const s = { x: 0, y: 0}
 
   //Calculate the vector between the circles’ center points
 
   if (global) {
     //Use global coordinates
-    vx = (c2.gx + c2.radius) - (c1.gx + c1.radius);
-    vy = (c2.gy + c2.radius) - (c1.gy + c1.radius);
+    vx = (c2.gx + (c2 as any).radius) - (c1.gx + (c1 as any).radius);
+    vy = (c2.gy + (c2 as any).radius) - (c1.gy + (c1 as any).radius);
   } else {
     //Use local coordinates
     vx = c2.centerX - c1.centerX;
@@ -174,7 +176,7 @@ function circleCollision(c1: Circle, c2: Circle, bounce = false, global = false)
   const magnitude = Math.sqrt(vx * vx + vy * vy);
 
   //Add together the circles' combined half-widths
-  const combinedRadii = c1.radius + c2.radius;
+  const combinedRadii = (c1 as any).radius + (c2 as any).radius;
 
   //Figure out if there's a collision
   if (magnitude < combinedRadii) {
@@ -235,16 +237,17 @@ The sprites can contain an optional mass property that should be greater than 1.
 */
 
 export
-function movingCircleCollision(c1: Circle, c2: Circle, global = false) {
+function movingCircleCollision(c1: Circle & { mass?: number}, c2: Circle & { mass?: number }, global = false) {
 
-  let combinedRadii, overlap, xSide, ySide,
+  let overlap, xSide, ySide,
       //`s` refers to the distance vector between the circles
-      s = {},
-      p1A = {},
-      p1B = {},
-      p2A = {},
-      p2B = {},
       hit = false;
+
+  const s = { lx:0, ly: 0, vx: 0, vy: 0, magnitude: 0, dx:0, dy:0, vxHalf: 0, vyHalf: 0},
+      p1A = {x: 0, y: 0},
+      p1B = {x: 0, y:0},
+      p2A = {x: 0, y: 0},
+      p2B = {x: 0, y: 0};
 
   //Apply mass, if the circles have mass properties
   c1.mass = c1.mass || 1;
@@ -253,8 +256,8 @@ function movingCircleCollision(c1: Circle, c2: Circle, global = false) {
   //Calculate the vector between the circles’ center points
   if (global) {
     //Use global coordinates
-    s.vx = (c2.gx + c2.radius) - (c1.gx + c1.radius);
-    s.vy = (c2.gy + c2.radius) - (c1.gy + c1.radius);
+    s.vx = (c2.gx + (c2 as any).radius) - (c1.gx + (c1 as any).radius);
+    s.vy = (c2.gy + (c2 as any).radius) - (c1.gy + (c1 as any).radius);
   } else {
     //Use local coordinates
     s.vx = c2.centerX - c1.centerX;
@@ -266,7 +269,7 @@ function movingCircleCollision(c1: Circle, c2: Circle, global = false) {
   s.magnitude = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
 
   //Add together the circles' combined half-widths
-  combinedRadii = c1.radius + c2.radius;
+  const combinedRadii = (c1 as any).radius + (c2 as any).radius;
 
   //Figure out if there's a collision
   if (s.magnitude < combinedRadii) {
@@ -313,14 +316,14 @@ function movingCircleCollision(c1: Circle, c2: Circle, global = false) {
     //2. Bounce c1 off the surface (s)
 
     //Find the dot product between c1 and the surface
-    let dp1 = c1.vx * s.dx + c1.vy * s.dy;
+    const dp1 = c1.vx * s.dx + c1.vy * s.dy;
 
     //Project c1's velocity onto the collision surface
     p1A.x = dp1 * s.dx;
     p1A.y = dp1 * s.dy;
 
     //Find the dot product of c1 and the surface's left normal (s.lx and s.ly)
-    let dp2 = c1.vx * (s.lx / s.magnitude) + c1.vy * (s.ly / s.magnitude);
+    const dp2 = c1.vx * (s.lx / s.magnitude) + c1.vy * (s.ly / s.magnitude);
 
     //Project the c1's velocity onto the surface's left normal
     p1B.x = dp2 * (s.lx / s.magnitude);
@@ -329,14 +332,14 @@ function movingCircleCollision(c1: Circle, c2: Circle, global = false) {
     //3. Bounce c2 off the surface (s)
 
     //Find the dot product between c2 and the surface
-    let dp3 = c2.vx * s.dx + c2.vy * s.dy;
+    const dp3 = c2.vx * s.dx + c2.vy * s.dy;
 
     //Project c2's velocity onto the collision surface
     p2A.x = dp3 * s.dx;
     p2A.y = dp3 * s.dy;
 
     //Find the dot product of c2 and the surface's left normal (s.lx and s.ly)
-    let dp4 = c2.vx * (s.lx / s.magnitude) + c2.vy * (s.ly / s.magnitude);
+    const dp4 = c2.vx * (s.lx / s.magnitude) + c2.vy * (s.ly / s.magnitude);
 
     //Project c2's velocity onto the surface's left normal
     p2B.x = dp4 * (s.lx / s.magnitude);
@@ -346,16 +349,17 @@ function movingCircleCollision(c1: Circle, c2: Circle, global = false) {
 
     //Bounce c1
     //using p1B and p2A
-    c1.bounce = {};
-    c1.bounce.x = p1B.x + p2A.x;
-    c1.bounce.y = p1B.y + p2A.y;
+    c1.bounce = {
+      x: p1B.x + p2A.x,
+      y: p1B.y + p2A.y
+    };
 
     //Bounce c2
     //using p1A and p2B
-    c2.bounce = {};
-    c2.bounce.x = p1A.x + p2B.x;
-    c2.bounce.y = p1A.y + p2B.y;
-
+    c2.bounce = {
+      x: p1A.x + p2B.x,
+      y: p1A.y + p2B.y
+    };
     //Add the bounce vector to the circles' velocity
     //and add mass if the circle has a mass property
     c1.vx = c1.bounce.x / c1.mass;
@@ -462,11 +466,10 @@ should bounce off the second sprite.
 
 export
 function rectangleCollision(
-    r1, r2, bounce = false, global = true
+    r1: Rectangle, r2: Rectangle, bounce = false, global = true
 ) {
 
-  let collision, combinedHalfWidths, combinedHalfHeights,
-      overlapX, overlapY, vx, vy;
+  let collision, overlapX, overlapY, vx, vy;
 
   //Calculate the distance vector
   if (global) {
@@ -478,8 +481,8 @@ function rectangleCollision(
   }
 
   //Figure out the combined half-widths and half-heights
-  combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-  combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+  const combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+  const combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
   //Check whether vx is less than the combined half widths
   if (Math.abs(vx) < combinedHalfWidths) {
@@ -651,7 +654,7 @@ function hitTestCircleRectangle(c1: Circle, r1: Rectangle, global = false) {
       //The circle is touching one of the corners, so do a
   //circle vs. point collision test
   else {
-    let point = { x: 0, y: 0};
+    const point = { x: 0, y: 0};
 
     switch (region) {
       case "topLeft":
@@ -866,12 +869,12 @@ The first object can optionally have a mass property that's greater than 1. The 
 be used to dampen the bounce effect.
 */
 
-function bounceOffSurface(o: { v: {x: number, y: number}, mass?: number}, s: { x:number, y: number}) {
-  let dp1, dp2,
-      p1 = {},
-      p2 = {},
-      bounce = {},
+function bounceOffSurface(o: { vx: number, vy: number, mass?: number}, s: { x:number, y: number, lx?: number, magnitude?: number, ly?: number, dx?: number, dy?: number}) {
+
+  const p1 = {vx: 0, vy:0},
+      p2 = {vx: 0, vy: 0},
       mass = o.mass || 1;
+
 
   //1. Calculate the collision surface's properties
   //Find the surface vector's left normal
@@ -888,14 +891,14 @@ function bounceOffSurface(o: { v: {x: number, y: number}, mass?: number}, s: { x
   //2. Bounce the object (o) off the surface (s)
 
   //Find the dot product between the object and the surface
-  dp1 = o.vx * s.dx + o.vy * s.dy;
+  const dp1 = o.vx * s.dx + o.vy * s.dy;
 
   //Project the object's velocity onto the collision surface
   p1.vx = dp1 * s.dx;
   p1.vy = dp1 * s.dy;
 
   //Find the dot product of the object and the surface's left normal (s.lx and s.ly)
-  dp2 = o.vx * (s.lx / s.magnitude) + o.vy * (s.ly / s.magnitude);
+  const dp2 = o.vx * (s.lx / s.magnitude) + o.vy * (s.ly / s.magnitude);
 
   //Project the object's velocity onto the surface's left normal
   p2.vx = dp2 * (s.lx / s.magnitude);
@@ -906,8 +909,10 @@ function bounceOffSurface(o: { v: {x: number, y: number}, mass?: number}, s: { x
   p2.vy *= -1;
 
   //Add up the projections to create a new bounce vector
-  bounce.x = p1.vx + p2.vx;
-  bounce.y = p1.vy + p2.vy;
+  const bounce = {
+    x: p1.vx + p2.vx,
+    y: p1.vy + p2.vy
+  };
 
   //Assign the bounce vector to the object's velocity
   //with optional mass to dampen the effect
@@ -923,10 +928,10 @@ between rectangles, circles, and points.
 */
 
 export
-function hit(a, b, react = false, bounce = false, global, extra = undefined) {
-  let collision,
-      aIsASprite = a.parent !== undefined,
-      bIsASprite = b.parent !== undefined;
+function hit(a: Renderable | Renderable[], b: Renderable | Renderable[],  react = false, bounce = false, global: boolean, extra?: (...args: any[]) => void) {
+  let collision;
+  const aIsASprite = (a as Renderable).parent !== undefined;
+  const bIsASprite = (b as Renderable).parent !== undefined;
 
   //Check to make sure one of the arguments isn't an array
   if (aIsASprite && b instanceof Array || bIsASprite && a instanceof Array) {
@@ -946,31 +951,31 @@ function hit(a, b, react = false, bounce = false, global, extra = undefined) {
   //collision is occuring on
   return collision;
 
-  function findCollisionType(a, b) {
+  function findCollisionType(a: Renderable[] | Renderable, b: Renderable | Renderable[]) {
     //Are `a` and `b` both sprites?
     //(We have to check again if this function was called from
     //`spriteVsArray`)
-    let aIsASprite = a.parent !== undefined;
-    let bIsASprite = b.parent !== undefined;
+    const aIsASprite = (a as any).parent !== undefined;
+    const bIsASprite = (b as any).parent !== undefined;
 
     if (aIsASprite && bIsASprite) {
       //Yes, but what kind of sprites?
-      if (a.diameter && b.diameter) {
+      if ((a as any).diameter && (b as any).diameter) {
         //They're circles
-        return circleVsCircle(a, b);
-      } else if (a.diameter && !b.diameter) {
+        return circleVsCircle(a as Circle, b as Circle);
+      } else if ((a as any).diameter && !(b as any).diameter) {
         //The first one is a circle and the second is a rectangle
-        return circleVsRectangle(a, b);
+        return circleVsRectangle(a as Circle, b as Rectangle);
       } else {
         //They're rectangles
-        return rectangleVsRectangle(a, b);
+        return rectangleVsRectangle(a as Rectangle, b as Rectangle);
       }
     }
         //They're not both sprites, so what are they?
     //Is `a` not a sprite and does it have x and y properties?
-    else if (bIsASprite && !(a.x === undefined) && !(a.y === undefined)) {
+    else if (bIsASprite && !((a as any).x === undefined) && !((a as any).y === undefined)) {
       //Yes, so this is a point vs. sprite collision test
-      return hitTestPoint(a, b);
+      return hitTestPoint(a as Point, b as Renderable);
     } else {
       //The user is trying to test some incompatible objects
       throw new Error(`I'm sorry, ${a} and ${b} cannot be use together in a collision test.'`);
@@ -980,11 +985,13 @@ function hit(a, b, react = false, bounce = false, global, extra = undefined) {
   function spriteVsArray() {
     //If `a` happens to be the array, flip it around so that it becomes `b`
     if (a instanceof Array) {
-      let [a, b] = [b, a];
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const [a, b] = [b, a];
     }
     //Loop through the array in reverse
-    for (let i = b.length - 1; i >= 0; i--) {
-      let sprite = b[i];
+    for (let i = (b as Renderable[]).length - 1; i >= 0; i--) {
+      const sprite = (b as Renderable[])[i];
       collision = findCollisionType(a, sprite);
       if (collision && extra)  {
         extra(collision, sprite);
