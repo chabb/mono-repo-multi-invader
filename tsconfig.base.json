@@ -17,6 +17,7 @@
     "paths": {
       "@chabb/collision": ["libs/collision/src/index.ts"],
       "@chabb/keyboard": ["libs/keyboard/src/index.ts"],
+      "@chabb/main": ["libs/main/src/index.ts"],
       "@chabb/music": ["libs/music/src/index.ts"],
       "@chabb/particle": ["libs/particle/src/index.ts"],
       "@chabb/renderer": ["libs/renderer/src/index.ts"],
