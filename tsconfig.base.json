@@ -21,6 +21,7 @@
       "@chabb/music": ["libs/music/src/index.ts"],
       "@chabb/particle": ["libs/particle/src/index.ts"],
       "@chabb/renderer": ["libs/renderer/src/index.ts"],
+      "@chabb/shared": ["libs/shared/src/index.ts"],
       "@chabb/sprite": ["libs/sprite/src/index.ts"],
       "@chabb/utility": ["libs/utility/src/index.ts"]
     }
