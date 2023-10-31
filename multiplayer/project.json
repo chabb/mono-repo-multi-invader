@@ -1,0 +1,64 @@
+{
+  "name": "multiplayer",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "multiplayer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/multiplayer",
+        "main": "multiplayer/src/main.ts",
+        "tsConfig": "multiplayer/tsconfig.app.json",
+        "assets": ["multiplayer/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "multiplayer/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "multiplayer:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "multiplayer:build:development"
+        },
+        "production": {
+          "buildTarget": "multiplayer:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["multiplayer/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "multiplayer/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
