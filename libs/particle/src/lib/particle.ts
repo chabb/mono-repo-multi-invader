@@ -23,7 +23,7 @@ export const particles: Particle[] = [];
 export function particleEffect(
     x = 0,
     y = 0,
-    spriteFunction = () => {
+    spriteFunction = (idx: number, total: number) => {
       let stage;
       // TODO(chab) remove
       if (!stage) {
@@ -60,12 +60,12 @@ export function particleEffect(
       angle += spacing;
     }
   }
-  angles.forEach((angle,/*idx*/) => makeParticle(angle /* ,idx */));
+  angles.forEach((angle,idx) => makeParticle(angle,idx));
 
-  function makeParticle(angle: number, /* idx: number*/ ): void {
+  function makeParticle(angle: number,  idx: number): void {
     // we should let the idx and angles be passed
 
-    const particle: WipParticle = spriteFunction();
+    const particle: WipParticle = spriteFunction(angle, idx);
     /*
     if (particle.frames.length > 0) {
       // go thru frame

@@ -1,7 +1,7 @@
 import {DisplayObject, Stage, Renderable} from "@chabb/sprite";
 
 
-interface CanvasWithContext extends HTMLCanvasElement {
+export interface CanvasWithContext extends HTMLCanvasElement {
   ctx: CanvasRenderingContext2D
 }
 
