@@ -201,7 +201,7 @@ export class GameControllerGateway
   }
 
   afterInit(server: Server): void {
-    this.log.warn('Server started, config : ', server.path);
+    this.log.warn('Server started, config : ', server);
     this.server = server;
   }
 

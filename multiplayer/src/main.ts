@@ -10,6 +10,7 @@ async function bootstrap() {
   log.log(`Configuration, WIDTH ${app.get(ConfigService).get('WIDTH')}`);
   log.log(`Configuration, HEIGHT ${app.get(ConfigService).get('HEIGHT')}`);
   log.log(`Configuration, MAXLIFE ${app.get(ConfigService).get('TURRETS')}`);
+  log.log(`Configuration, PORT,${app.get(ConfigService).get('PORT')}`);
   await app.listen(app.get(ConfigService).get('PORT'));
 }
 bootstrap().then((r) => console.log('waiting....'));
