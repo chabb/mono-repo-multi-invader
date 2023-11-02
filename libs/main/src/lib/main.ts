@@ -4,7 +4,7 @@ import {hit} from "@chabb/collision";
 import {Key, keyboard} from "@chabb/keyboard";
 import {particleEffect, particles} from "@chabb/particle";
 import {CanvasWithContext, makeCanvas, render} from "@chabb/renderer";
-import {Socket} from "socket.io";
+import {Socket} from "socket.io-client";
 import {State, TankDTO} from "@chabb/shared";
 
 
