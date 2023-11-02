@@ -20,5 +20,9 @@ function playSound() {
 }
 
 export function loadMusic(file: string | URL) {
+  if (file === '') {
+    console.warn('No file passed');
+    return;
+  }
   getSound.open("GET", file, true);
 }

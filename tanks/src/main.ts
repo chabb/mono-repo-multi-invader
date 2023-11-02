@@ -1,6 +1,9 @@
 import { io } from 'socket.io-client'
 import {setup} from "@chabb/main";
+import {loadMusic} from "@chabb/music";
 
+// TODO replace with correct asset
+loadMusic('');
 
 const socket = io("http://localhost:3000");
 socket.on('connect', () => {
