@@ -14,7 +14,6 @@
         "outputPath": "dist/multiplayer",
         "main": "multiplayer/src/main.ts",
         "tsConfig": "multiplayer/tsconfig.app.json",
-        "assets": ["multiplayer/src/assets"],
         "isolatedConfig": true,
         "webpackConfig": "multiplayer/webpack.config.js"
       },

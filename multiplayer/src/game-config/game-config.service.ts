@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Config } from '../config/config.controller';
+import {Config} from "@chabb/shared";
 
 @Injectable()
 export class GameConfigService {

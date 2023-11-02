@@ -14,8 +14,8 @@ import { UnRegisteredGuard } from '../register/unregister.guard';
 import { RegisteredGuard } from '../register/register.guard';
 import { Logger, UseGuards } from '@nestjs/common';
 import { TurretService } from '../turret/turret.service';
-import { Config } from '../config/config.controller';
 import {GameConfigService} from "../game-config/game-config.service";
+import {Config, TankDTO} from "@chabb/shared";
 
 @WebSocketGateway({
   cors: {
@@ -54,7 +54,7 @@ export class GameControllerGateway
         this.log.warn(`Retrieving current state from the first player ${id}`);
         this.server.sockets.sockets
           .get(id)
-          .emit('getState', { id }, (tanks) => {
+          .emit('getState', { id }, (tanks: TankDTO[]) => {
             this.log.log('[GET STATE] tanks', tanks);
             // TODO simplify
             socket.emit(
@@ -201,7 +201,7 @@ export class GameControllerGateway
   }
 
   afterInit(server: Server): void {
-    this.log.warn('Server started, config : ', server._opts);
+    this.log.warn('Server started, config : ', server.path);
     this.server = server;
   }
 
