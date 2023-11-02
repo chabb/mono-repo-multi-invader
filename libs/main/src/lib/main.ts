@@ -1,10 +1,11 @@
-import {Circle, DisplayObject, Rectangle, Group, Line, Stage, Renderable} from '@chabb/sprite';
+import {Circle, DisplayObject, Rectangle, Group, Line, Stage, Renderable, grid} from '@chabb/sprite';
 import {shoot} from "@chabb/utility";
 import {hit} from "@chabb/collision";
 import {Key, keyboard} from "@chabb/keyboard";
 import {particleEffect, particles} from "@chabb/particle";
 import {CanvasWithContext, makeCanvas, render} from "@chabb/renderer";
 import {Socket} from "socket.io";
+import {State, TankDTO} from "@chabb/shared";
 
 
 class Tank extends Group {
@@ -53,22 +54,6 @@ let playerBox: { width: number, height: number };
 const tanksById: { [id: string]: Tank } = {};
 
 
-interface TankDTO {
-    alpha: number,
-    ax: number,
-    ay: number,
-    friction: number,
-    speed: number,
-    rotationSpeed: number,
-    moveForward: boolean,
-    vx: number,
-    vy: number,
-    color: string,
-    rotation: number,
-    x: number,
-    y: number,
-    id: string;
-}
 
 function makeGunTurret({x, y, rotationSpeed, firingRate}: { x: number, y: number, rotationSpeed: number, firingRate: number }) {
     const gunTurret = new GunTurret(x, y, rotationSpeed, firingRate)
@@ -166,7 +151,7 @@ export function setup(config: any, socket: Socket) {
         callback();
     })
 
-    socket.on('state', (state: { turrets: TankDTO[], playerTanks: TankDTO[], playerTank: TankDTO}, callback: any) => {
+    socket.on('state', (state: State, callback: any) => {
         // this is ONLY called when the game start
         console.log('[INITIAL STATE], received from server', state)
         state.turrets.forEach(turret => gunTurrets.push(makeGunTurret(turret)));

@@ -27,15 +27,16 @@ export interface TankDTO {
   ax: number;
   ay: number;
   color: string;
-  friction: string;
+  friction: number;
   speed: number;
   rotationSpeed: number;
+  rotation: number;
   moveForward: boolean;
   vx: number;
   vy: number;
   id: string;
-  x: string;
-  y: string;
+  x: number;
+  y: number;
 
 }
 

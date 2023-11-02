@@ -5,3 +5,4 @@ export * from './lib/rectangle';
 export * from './lib/renderable';
 export * from './lib/group'
 export * from './lib/stage';
+export * from './lib/grid';
