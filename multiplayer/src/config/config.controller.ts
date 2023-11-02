@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { GameConfigService } from '../game-config/game-config.service';
+import {Config} from "@chabb/shared";
 
 @Controller('config')
 export class ConfigController {
@@ -14,9 +15,4 @@ export class ConfigController {
     this.gameConfigService.updateConfig(configDTO);
   }
 }
-export interface Config {
-  width: number;
-  height: number;
-  maxLife: number;
-  turrets: number;
-}
+

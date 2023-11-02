@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Player } from './player.interface';
 import { ConfigService } from '@nestjs/config';
-import { of } from 'rxjs';
 import { getBulletColor } from './bulet-color';
 import { getPlayerColor } from './player-color';
+import {Player} from "@chabb/shared";
 
 @Injectable()
 export class PlayersService {
@@ -28,8 +27,8 @@ export class PlayersService {
   }
 
   createPlayer(id): Player {
-    let offsetDirection = Math.random() > 0.5 ? 1 : -1;
-    let numberOfPlayets = this.numberOfPlayers();
+    const offsetDirection = Math.random() > 0.5 ? 1 : -1;
+    const numberOfPlayets = this.numberOfPlayers();
     return {
       lifePoint: this.conf.get('MAXLIFE'),
       id,

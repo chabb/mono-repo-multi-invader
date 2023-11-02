@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import {Turret} from "@chabb/shared";
 
 @Injectable()
 export class TurretService {
@@ -27,12 +28,4 @@ export class TurretService {
   public getTurrets() {
     return [...this.turrets];
   }
-}
-
-interface Turret {
-  x: number;
-  y: number;
-  rotationSpeed: number;
-  firingRate: number;
-  rotation: number;
 }
