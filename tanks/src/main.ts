@@ -2,8 +2,8 @@ import { io } from 'socket.io-client'
 import {setup} from "@chabb/main";
 import {loadMusic} from "@chabb/music";
 
-// TODO replace with correct asset
-loadMusic('');
+// the sound API was more lenient, but now you cannot create an audio context immediately
+setTimeout(() => loadMusic('src/assets/music.mp3'), 0);
 
 const socket = io("http://localhost:3000");
 socket.on('connect', () => {
