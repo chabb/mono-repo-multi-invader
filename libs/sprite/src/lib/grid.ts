@@ -5,7 +5,7 @@ export function grid(
     columns = 0, rows = 0, cellWidth = 32, cellHeight = 32,
     centerCell = false, xOffset = 0, yOffset = 0,
     makeSprite: () => DisplayObject,
-    extra: (sprite: DisplayObject) => void
+    extra?: (sprite: DisplayObject) => void
 ){
 
     //Create an empty group called `container`. This `container`
