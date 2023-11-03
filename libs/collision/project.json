@@ -15,10 +15,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/collision/**/*.ts",
-          "libs/collision/package.json"
-        ]
+        "lintFilePatterns": ["libs/collision/**/*.ts"]
       }
     },
     "test": {

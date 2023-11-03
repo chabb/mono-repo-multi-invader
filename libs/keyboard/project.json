@@ -19,10 +19,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/keyboard/**/*.ts",
-          "libs/keyboard/package.json"
-        ]
+        "lintFilePatterns": ["libs/keyboard/**/*.ts"]
       }
     },
     "test": {

@@ -15,10 +15,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/renderer/**/*.ts",
-          "libs/renderer/package.json"
-        ]
+        "lintFilePatterns": ["libs/renderer/**/*.ts"]
       }
     },
     "test": {

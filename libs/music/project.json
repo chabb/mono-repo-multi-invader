@@ -19,7 +19,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/music/**/*.ts", "libs/music/package.json"]
+        "lintFilePatterns": ["libs/music/**/*.ts"]
       }
     },
     "test": {

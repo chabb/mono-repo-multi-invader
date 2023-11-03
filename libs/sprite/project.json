@@ -19,7 +19,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/sprite/**/*.ts", "libs/sprite/package.json"]
+        "lintFilePatterns": ["libs/sprite/**/*.ts"]
       }
     },
     "test": {
