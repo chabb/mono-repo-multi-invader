@@ -1,4 +1,4 @@
-import {DisplayObject} from "@chabb/sprite";
+import {DisplayObject} from "./displayObject";
 
 export class Rectangle extends DisplayObject {
 
