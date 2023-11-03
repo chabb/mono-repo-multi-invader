@@ -68,9 +68,9 @@ export function render(canvas: CanvasWithContext, stage: Stage) {
       if (sprite.blendMode) {
         ctx.globalCompositeOperation = sprite.blendMode;
       }
-      if ((sprite as Renderable).render) {
+      if ((sprite as any).render) { // FIXME a group does not know how to render, only leaves elements (=sprite ) know
         // FIXME maybe use guard, I thought TS would be smart enough to know that render exists
-        (sprite as Renderable).render(ctx);
+        (sprite as any).render(ctx);
       }
       if (sprite.children && sprite.children.length > 0) {
         // reset context to top of parent

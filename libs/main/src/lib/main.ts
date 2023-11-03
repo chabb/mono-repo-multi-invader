@@ -19,7 +19,7 @@ class Tank extends Group {
   rotationSpeed = 0;
   moveForward = false;
   bulletColor = '';
-  override children!: [Rectangle, Line];
+  declare children: [Rectangle, Line]; // useDefineForClassFields??
 
   constructor(currentPlayer = true, public color: string = 'gray') {
     const box = new Rectangle(32, 32, color, color);
