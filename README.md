@@ -31,9 +31,3 @@ Build a lib (e.g: collision )
 ``` 
 nx build collision
 ```
-
-## TODO
-Source maps are not correctly propagated between libs and the client app. When the client is served, it's not 
-possible to debug properly the typescript source file
-
-
