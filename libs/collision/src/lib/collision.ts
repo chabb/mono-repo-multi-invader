@@ -928,7 +928,7 @@ between rectangles, circles, and points.
 */
 
 export
-function hit(a: Renderable | Renderable[], b: Renderable | Renderable[],  react = false, bounce = false, global: boolean, extra?: (...args: any[]) => void) {
+function hit(a: Renderable | Renderable[], b: Renderable | Renderable[],  react = false, bounce = false, global = false, extra?: (...args: any[]) => void) {
   let collision;
   const aIsASprite = (a as Renderable).parent !== undefined;
   const bIsASprite = (b as Renderable).parent !== undefined;
