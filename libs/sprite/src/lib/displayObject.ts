@@ -9,8 +9,8 @@ export class DisplayObject {
   visible = true;
   scaleX = 1;
   scaleY = 1;
-  pivotX = 1;
-  pivotY = 1;
+  pivotX = 0.5;
+  pivotY = 0.5;
   vx = 0;
   vy = 0;
   children: DisplayObject[] = [];
