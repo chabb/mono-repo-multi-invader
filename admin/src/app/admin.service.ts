@@ -11,10 +11,10 @@ export class AdminService {
   constructor(private readonly client: HttpClient) { }
 
   fetchConfig(): Observable<Config> {
-    return this.client.get<Config>('/config');
+    return this.client.get<Config>('http://localhost:3000/config');
   }
 
   updateConfig(config: Partial<Config>): Observable<void> {
-    return this.client.post<void>('/config', config);
+    return this.client.post<void>('http://localhost:3000/config', config);
   }
 }

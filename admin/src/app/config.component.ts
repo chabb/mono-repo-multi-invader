@@ -15,17 +15,16 @@ export type SimpleFormGroup<Type> = {
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   template: `
-    <form [formGroup]="formGroup">
+
+    <form [formGroup]="formGroup" *ngIf="config$ | async">
       Width : <input type="number"  formControlName="width"> <br/>
       Height :<input type="number"  formControlName="height"> <br/>
       Player life: <input type="number"  formControlName="maxLife"> <br/>
       Turrets : <input type="number"  formControlName="turrets"> <br/>
     </form>
 
-    <button (click)="save()"> {{isEditing ? 'Save' : 'Edit' }} </button>
-    <button (click)="reset()" *ngIf="isEditing"> Cancel </button>
-
-    {{ config$ | async | json }}
+    <button (click)="formGroup.enabled ? save() : edit()"> {{formGroup.enabled ? 'Save' : 'Edit' }} </button>
+    <button (click)="reset()" *ngIf="formGroup.enabled"> Cancel </button>
   `,
   styles: [],
   encapsulation: ViewEncapsulation.None,
@@ -40,7 +39,6 @@ export class ConfigComponent implements AfterViewInit {
   };
   protected readonly  formGroup: FormGroup<SimpleFormGroup<Config>> = new FormGroup(this.formControls);
 
-    protected isEditing = true;
     private readonly fetchConfig$: Subject<void> = new Subject();
 
     protected readonly config$ = this.fetchConfig$.pipe(
@@ -64,8 +62,12 @@ export class ConfigComponent implements AfterViewInit {
   }
 
   protected reset(): void {
-      this.formGroup.reset();
-      this.formGroup.disable();
+    this.formGroup.disable();
+    this.fetchConfig$.next();
+  }
+
+  protected edit(): void {
+      this.formGroup.enable();
   }
 
   ngAfterViewInit(): void {
