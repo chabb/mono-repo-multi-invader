@@ -26,12 +26,10 @@
               },
               {
                 "sourceTag": "scope:server",
-                "onlyDependOnLibsWithTags": [
-                  "scope:libs"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
-                "sourceTag": "scope:server",
+                "sourceTag": "scope:admin",
                 "onlyDependOnLibsWithTags": ["scope:shared"]
               }
             ]

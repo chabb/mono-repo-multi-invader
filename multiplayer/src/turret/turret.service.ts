@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {Turret} from "@chabb/shared";
+import { Turret } from '@chabb/shared';
 
 @Injectable()
 export class TurretService {
