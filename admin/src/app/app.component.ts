@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { ConfigComponent } from './config.component';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent],
+  imports: [ConfigComponent],
   selector: 'multi-invader-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
