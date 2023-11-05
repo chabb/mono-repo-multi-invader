@@ -26,3 +26,9 @@ Build a lib (e.g: collision )
 ``` 
 nx build collision
 ```
+
+Serve the angular app 
+
+```
+nx serve admin
+```

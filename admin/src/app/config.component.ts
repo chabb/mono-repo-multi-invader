@@ -10,7 +10,7 @@ export type SimpleFormGroup<Type> = {
 };
 
 @Component({
-  selector: 'multi-invader-admin',
+  selector: 'multi-invader-config',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   template: `
