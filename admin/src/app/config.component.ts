@@ -1,4 +1,4 @@
-import {Component, numberAttribute, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, numberAttribute, OnInit, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from "./admin.service";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -16,10 +16,10 @@ export type SimpleFormGroup<Type> = {
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   template: `
     <form [formGroup]="formGroup">
-      <input type="number"  formControlName="width">
-      <input type="number"  formControlName="height">
-      <input type="number"  formControlName="maxLife">
-      <input type="number"  formControlName="turrets">
+      Width : <input type="number"  formControlName="width"> <br/>
+      Height :<input type="number"  formControlName="height"> <br/>
+      Player life: <input type="number"  formControlName="maxLife"> <br/>
+      Turrets : <input type="number"  formControlName="turrets"> <br/>
     </form>
 
     <button (click)="save()"> {{isEditing ? 'Save' : 'Edit' }} </button>
@@ -30,7 +30,7 @@ export type SimpleFormGroup<Type> = {
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class ConfigComponent implements OnInit {
+export class ConfigComponent implements AfterViewInit {
 
   private readonly formControls: SimpleFormGroup<Config> = {
     width: new FormControl<number>(0, { nonNullable: true}),
@@ -68,7 +68,7 @@ export class ConfigComponent implements OnInit {
       this.formGroup.disable();
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
       this.fetchConfig$.next();
   }
 }
