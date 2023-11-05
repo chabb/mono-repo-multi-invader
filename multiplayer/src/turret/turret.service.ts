@@ -1,14 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Turret } from '@chabb/shared';
 
 @Injectable()
 export class TurretService {
-  private readonly turrets: Turret[] = [];
+
+  private readonly log = new Logger();
+  private turrets: Turret[] = [];
   constructor(private readonly conf: ConfigService) {
-    for (let i = 0; i < parseInt(this.conf.get('TURRETS')); i++) {
-      this.turrets.push(this.makeTurret());
-    }
+    this.buildTurrets();
   }
 
   private makeTurret(): Turret {
@@ -27,5 +27,13 @@ export class TurretService {
 
   public getTurrets() {
     return [...this.turrets];
+  }
+
+  public buildTurrets(): void {
+    this.log.log('CREATING TURRETS');
+    this.turrets = [];
+    for (let i = 0; i < parseInt(this.conf.get('TURRETS')); i++) {
+      this.turrets.push(this.makeTurret());
+    }
   }
 }
