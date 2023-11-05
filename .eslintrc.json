@@ -26,7 +26,13 @@
               },
               {
                 "sourceTag": "scope:server",
-                "onlyDependOnLibsWithTags": ["scope:libs"]
+                "onlyDependOnLibsWithTags": [
+                  "scope:libs"
+                ]
+              },
+              {
+                "sourceTag": "scope:server",
+                "onlyDependOnLibsWithTags": ["scope:shared"]
               }
             ]
           }
